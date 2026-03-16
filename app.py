@@ -1,12 +1,15 @@
-from flask import Flask, send_from_directory
-import os
+# app.py
+from flask import Flask, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # allow requests from all origins
 
-@app.route("/")
-def home():
-    return send_from_directory(".", "index.html")
+@app.route("/data")
+def get_data():
+    return jsonify({"message": "Hello from backend"})
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
+    import os
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
